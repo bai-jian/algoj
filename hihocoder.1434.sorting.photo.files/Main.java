@@ -3,15 +3,14 @@ import java.util.regex.*;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-
-        in.nextLine();
         List<String> filenames = new ArrayList<>();
+
+        Scanner in = new Scanner(System.in);
         while (in.hasNextLine()) {
             filenames.add(in.nextLine());
         }
 
-        filenames.sort((filename1, filename2) -> {
+        filenames.stream().skip(1).sorted((filename1, filename2) -> {
             Pattern pattern = Pattern.compile("(\\D+)(\\d+)");
             Matcher matcher1 = pattern.matcher(filename1);
             matcher1.matches();
@@ -27,8 +26,6 @@ public class Main {
                 int numberPart2 = Integer.valueOf(matcher2.group(2));
                 return numberPart1 - numberPart2;
             }
-        });
-
-        filenames.forEach(System.out::println);
+        }).forEach(System.out::println);
     }
 }
