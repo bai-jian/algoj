@@ -19,15 +19,22 @@ public class Main {
 
         do {
             Map.Entry<Vertex, Integer> vertex = null;
-            for (Map.Entry<Vertex, Integer> e : distances.entrySet())
-                if (!set.contains(e.getKey()) && (vertex == null || e.getValue() < vertex.getValue()))
+            for (Map.Entry<Vertex, Integer> e : distances.entrySet()) {
+                if (set.contains(e.getKey()))
+                    continue;
+                if (vertex == null || e.getValue() < vertex.getValue())
                     vertex = e;
+            }
 
             set.add(vertex.getKey());
 
-            for (Map.Entry<Vertex, Integer> e : vertex.getKey().neighbours)
-                if (!set.contains(e.getKey()) && (!distances.containsKey(e.getKey()) || vertex.getValue() + e.getValue() < distances.get(e.getKey())))
+            for (Map.Entry<Vertex, Integer> e : vertex.getKey().neighbours) {
+                if (set.contains(e.getKey()))
+                    continue;
+                if (!distances.containsKey(e.getKey()) || vertex.getValue() + e.getValue() < distances.get(e.getKey()))
                     distances.put(e.getKey(), vertex.getValue() + e.getValue());
+            }
+
         } while (set.size() < distances.size());
 
         return distances;
