@@ -19,6 +19,8 @@ public:
 	BinaryTree() : root(nullptr) {}
 
 	TreeNode *invert(TreeNode *root);
+
+	bool subtree(TreeNode *root1, TreeNode *root2);
 };
 
 class BinarySearchTree
